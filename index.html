@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LSU Futsal Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4a1d96;
+    --purple-dark: #2d0f6b;
+    --gold: #f5c518;
+    --gold-dark: #c9a000;
+    --white: #ffffff;
+    --bg: #0a0612;
+    --card-bg: #110920;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--white); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 72px;
+    background: rgba(10,6,18,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,197,24,0.2);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; }
+  .nav-logo img { height: 48px; filter: drop-shadow(0 0 8px rgba(245,197,24,0.5)); }
+  .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: #fff; }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--purple-dark); font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; padding: 10px 24px; border: none; cursor: pointer; clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); transition: background 0.2s; text-decoration: none; }
+  .nav-cta:hover { background: var(--gold-dark); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden; padding-top: 72px;
+    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(74,29,150,0.5) 0%, transparent 70%);
+  }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(-55deg, transparent, transparent 40px, rgba(74,29,150,0.07) 40px, rgba(74,29,150,0.07) 41px);
+  }
+  .hero-logo-bg {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(560px, 90vw);
+    opacity: 0.12;
+    filter: saturate(0.2) brightness(1.8);
+    pointer-events: none; z-index: 1;
+    animation: floatBg 5s ease-in-out infinite;
+  }
+  .hero-content {
+    position: relative; z-index: 2; text-align: center;
+    max-width: 900px; padding: 0 24px;
+  }
+  .hero-badge {
+    display: inline-block; font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); border: 1px solid rgba(245,197,24,0.4); padding: 6px 20px;
+    margin-bottom: 32px; background: rgba(245,197,24,0.05);
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(60px, 11vw, 120px);
+    line-height: 0.88; letter-spacing: 4px;
+    color: #fff; margin-bottom: 12px;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif; font-size: clamp(16px, 2.5vw, 24px);
+    font-weight: 400; letter-spacing: 6px; text-transform: uppercase;
+    color: rgba(255,255,255,0.45); margin-bottom: 40px;
+  }
+  .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* BUTTONS */
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 15px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 16px 40px;
+    background: var(--gold); color: var(--purple-dark); border: none; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    text-decoration: none; display: inline-block; transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(245,197,24,0.3); }
+  .btn-outline {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 14px 40px;
+    background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.3);
+    cursor: pointer; clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* STATS */
+  .stats-bar {
+    background: var(--purple-dark); border-top: 3px solid var(--gold);
+    border-bottom: 1px solid rgba(245,197,24,0.2);
+    padding: 32px 0; display: flex; justify-content: center;
+  }
+  .stat-item { flex: 1; max-width: 200px; text-align: center; padding: 0 24px; border-right: 1px solid rgba(255,255,255,0.1); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--gold); line-height: 1; display: block; }
+  .stat-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; display: block; }
+
+  /* SECTIONS */
+  .section-wrap { padding: 100px 48px; }
+  .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); letter-spacing: 2px; line-height: 0.95; margin-bottom: 24px; }
+
+  /* ABOUT */
+  .about-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-text p { font-size: 17px; line-height: 1.8; color: rgba(255,255,255,0.7); margin-bottom: 20px; }
+  .about-card { background: var(--card-bg); border: 1px solid rgba(74,29,150,0.5); border-top: 3px solid var(--gold); padding: 40px; position: relative; overflow: hidden; }
+  .about-card h3 { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 2px; color: var(--gold); margin-bottom: 16px; }
+  .about-card ul { list-style: none; }
+  .about-card ul li { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; color: rgba(255,255,255,0.8); padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); display: flex; align-items: center; gap: 12px; }
+  .about-card ul li::before { content: '⚽'; font-size: 14px; }
+
+  /* SCHEDULE */
+  #schedule { background: var(--card-bg); }
+  .schedule-inner { max-width: 900px; margin: 0 auto; text-align: center; padding: 100px 48px; }
+  .event-card {
+    background: rgba(74,29,150,0.2); border: 1px solid rgba(245,197,24,0.3);
+    padding: 36px; position: relative; margin-top: 48px;
+    transition: border-color 0.2s, transform 0.2s; text-align: left;
+  }
+  .event-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+  .event-inner { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+  .event-date { font-family: 'Bebas Neue', sans-serif; font-size: 64px; color: var(--gold); line-height: 1; }
+  .event-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .event-main { flex: 1; min-width: 200px; }
+  .event-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; }
+  .event-time { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; color: var(--gold); margin-bottom: 6px; }
+  .event-location { font-size: 14px; color: rgba(255,255,255,0.5); }
+  .event-note { flex: 1; min-width: 200px; text-align: right; }
+  .event-note p { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+  .event-note strong { color: rgba(255,255,255,0.65); }
+  .event-note a { display: inline-block; margin-top: 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(245,197,24,0.4); }
+  .event-badge { position: absolute; top: 16px; right: 16px; background: var(--gold); color: var(--purple-dark); font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 10px; letter-spacing: 2px; padding: 4px 10px; text-transform: uppercase; }
+  .schedule-note { margin-top: 28px; color: rgba(255,255,255,0.35); font-size: 14px; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; }
+
+  /* JOIN */
+  #join { text-align: center; background: linear-gradient(135deg, var(--purple-dark) 0%, var(--bg) 100%); position: relative; overflow: hidden; }
+  #join::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(245,197,24,0.02) 60px, rgba(245,197,24,0.02) 61px); }
+  #join .inner { position: relative; max-width: 700px; margin: 0 auto; }
+  #join p { font-size: 18px; color: rgba(255,255,255,0.6); margin-bottom: 32px; line-height: 1.7; }
+  .social-links { margin-top: 40px; display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+  /* FOOTER */
+  footer { background: #050309; border-top: 1px solid rgba(74,29,150,0.4); padding: 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 3px; color: rgba(255,255,255,0.3); }
+  .footer-brand span { color: var(--gold); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.2); width: 100%; text-align: center; margin-top: 16px; }
+
+  /* ANIMATIONS */
+  @keyframes floatBg {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -52%) scale(1.03); }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .section-wrap { padding: 60px 20px; }
+    .schedule-inner { padding: 60px 20px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat-item { min-width: 120px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    footer { flex-direction: column; padding: 32px 20px; }
+    .event-inner { flex-direction: column; gap: 16px; }
+    .event-note { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo.png" alt="LSU Futsal Club">
+    <span>LSU Futsal Club</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#schedule">Schedule</a></li>
+    <li><a href="#join">Join</a></li>
+    <li><a href="#join">Contact</a></li>
+  </ul>
+  <a href="join.html" class="nav-cta">Join Now</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <img src="logo.png" class="hero-logo-bg" alt="" aria-hidden="true">
+  <div class="hero-content">
+    <div class="hero-badge">Louisiana State University</div>
+    <h1 class="hero-title">Play <span>Futsal</span><br>with Passion</h1>
+    <p class="hero-subtitle">LSU Futsal Club · Baton Rouge, LA</p>
+    <div class="hero-actions">
+      <a href="join.html" class="btn-primary">Join the Club</a>
+      <a href="#about" class="btn-outline">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <span class="stat-num">50+</span>
+    <span class="stat-label">Active Members</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">2</span>
+    <span class="stat-label">Years Active</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-num">Daily</span>
+    <span class="stat-label">Open Runs</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="section-wrap">
+  <div class="about-grid" id="about">
+    <div class="about-text">
+      <span class="section-label">Who We Are</span>
+      <h2 class="section-title">More Than a <span style="color:var(--gold)">Club</span></h2>
+      <p>LSU Futsal Club is a student-run organization at Louisiana State University dedicated to growing the beautiful game of futsal in Baton Rouge. Whether you're a seasoned player or brand new to the sport, everyone is welcome.</p>
+      <p>We compete in collegiate futsal leagues, host open play sessions, and travel to regional tournaments — all while building a tight-knit community of passionate athletes who bleed purple and gold.</p>
+      <a href="join.html" class="btn-primary" style="margin-top: 16px;">Get Involved</a>
+    </div>
+    <div>
+      <div class="about-card">
+        <h3>What We Offer</h3>
+        <ul>
+          <li>Competitive &amp; recreational play</li>
+          <li>Daily open play sessions</li>
+          <li>Skill development</li>
+          <li>All levels are welcome</li>
+          <li>Community events &amp; socials</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SCHEDULE -->
+<section id="schedule">
+  <div class="schedule-inner">
+    <span class="section-label">When We Play</span>
+    <h2 class="section-title">Schedule</h2>
+    <div class="event-card">
+      <div class="event-badge">Open Daily</div>
+      <div class="event-inner">
+        <div>
+          <div class="event-date">Daily</div>
+          <div class="event-sub">Every Day</div>
+        </div>
+        <div class="event-main">
+          <div class="event-name">Open Play / Practice</div>
+          <div class="event-time">⏰ ~6:30 PM – 11:00 PM</div>
+          <div class="event-location">📍 LSU Rec Center</div>
+        </div>
+        <div class="event-note">
+          <p>Times may vary —<br>always check<br><strong>GroupMe for updates</strong></p>
+          <a href="join.html">Join GroupMe →</a>
+        </div>
+      </div>
+    </div>
+    <p class="schedule-note">* Times subject to change. Check GroupMe for the latest.</p>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section id="join" class="section-wrap">
+  <div class="inner">
+    <span class="section-label">Get Started</span>
+    <h2 class="section-title">Ready to <span style="color:var(--gold)">Play?</span></h2>
+    <p>Joining is easy — connect with the team on GroupMe and register officially on TigerLink. Two steps and you're in.</p>
+    <a href="join.html" class="btn-primary" style="font-size:17px; padding: 18px 48px;">Join the Club →</a>
+    <div class="social-links">
+      <a href="https://www.instagram.com/lsu.futsal?igsh=YWFycnI4M2NveDM1" target="_blank" class="btn-outline" style="padding: 12px 28px;">📸 Instagram</a>
+      <a href="/cdn-cgi/l/email-protection#026e717764777671636e616e776042656f636b6e2c616d6f" class="btn-outline" style="padding: 12px 28px;">✉️ Email Us</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand"><span>LSU</span> Futsal Club</div>
+  <div class="footer-links">
+    <a href="#about">About</a>
+    <a href="#schedule">Schedule</a>
+    <a href="join.html">Join</a>
+    <a href="/cdn-cgi/l/email-protection#f599868093808186949996998097b59298949c99db969a98">Contact</a>
+  </div>
+  <p class="footer-copy">© 2026 LSU Futs

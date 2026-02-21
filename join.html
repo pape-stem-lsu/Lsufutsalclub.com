@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join — LSU Futsal Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4a1d96;
+    --purple-dark: #2d0f6b;
+    --gold: #f5c518;
+    --gold-dark: #c9a000;
+    --bg: #0a0612;
+    --card-bg: #110920;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: #fff; font-family: 'Barlow', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 72px;
+    background: rgba(10,6,18,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,197,24,0.2);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { height: 48px; filter: drop-shadow(0 0 8px rgba(245,197,24,0.5)); }
+  .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: #fff; }
+  .nav-back { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; gap: 8px; }
+  .nav-back:hover { color: var(--gold); }
+
+  /* PAGE HERO */
+  .page-hero {
+    min-height: 38vh; display: flex; align-items: flex-end;
+    padding: 0 48px 56px; position: relative; overflow: hidden;
+    margin-top: 72px;
+    background: radial-gradient(ellipse 70% 80% at 30% 50%, rgba(74,29,150,0.55) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 50% at 90% 20%, rgba(245,197,24,0.07) 0%, transparent 60%);
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(-55deg, transparent, transparent 40px, rgba(74,29,150,0.06) 40px, rgba(74,29,150,0.06) 41px);
+  }
+  .page-hero-content { position: relative; max-width: 700px; }
+  .page-hero-content .label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
+  .page-hero-content h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 9vw, 96px); letter-spacing: 3px; line-height: 0.92; margin-bottom: 16px; }
+  .page-hero-content h1 span { color: var(--gold); }
+  .page-hero-content p { font-size: 17px; color: rgba(255,255,255,0.55); line-height: 1.6; max-width: 500px; }
+
+  /* STEPS BAR */
+  .steps-bar {
+    background: var(--purple-dark); border-top: 3px solid var(--gold);
+    padding: 28px 48px; display: flex; gap: 0; align-items: center; flex-wrap: wrap;
+  }
+  .step { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 200px; }
+  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 42px; color: var(--gold); line-height: 1; opacity: 0.5; }
+  .step-text strong { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: 1px; display: block; margin-bottom: 2px; }
+  .step-text span { font-size: 13px; color: rgba(255,255,255,0.45); }
+  .step-arrow { font-size: 20px; color: rgba(255,255,255,0.15); margin: 0 8px; }
+
+  /* JOIN CARDS */
+  .join-cards {
+    padding: 80px 48px; max-width: 1000px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+  .join-card {
+    background: var(--card-bg); border: 1px solid rgba(74,29,150,0.5);
+    border-top: 4px solid var(--gold); padding: 48px 40px;
+    display: flex; flex-direction: column; position: relative; overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .join-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(0,0,0,0.5), 0 0 0 1px rgba(245,197,24,0.2); }
+  .join-card::before { content: ''; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle, rgba(245,197,24,0.06) 0%, transparent 70%); }
+  .card-icon { font-size: 48px; margin-bottom: 24px; display: block; animation: floatIcon 3s ease-in-out infinite; }
+  .join-card:nth-child(2) .card-icon { animation-delay: -1.5s; }
+  .card-platform { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: 2px; line-height: 1; margin-bottom: 16px; }
+  .card-desc { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.55); margin-bottom: 32px; flex: 1; }
+  .card-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 15px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 16px 32px;
+    background: var(--gold); color: var(--purple-dark); text-decoration: none;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s; border: none; cursor: pointer;
+  }
+  .card-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
+  .card-note { margin-top: 14px; font-size: 12px; color: rgba(255,255,255,0.25); text-align: center; letter-spacing: 0.5px; }
+
+  /* INFO STRIP */
+  .info-strip {
+    background: rgba(74,29,150,0.12); border-top: 1px solid rgba(74,29,150,0.3);
+    border-bottom: 1px solid rgba(74,29,150,0.3);
+    padding: 36px 48px; display: flex; align-items: center; justify-content: center;
+    gap: 16px; text-align: center; flex-wrap: wrap;
+  }
+  .info-strip p { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; letter-spacing: 1px; color: rgba(255,255,255,0.5); }
+  .info-strip p strong { color: var(--gold); }
+  .info-strip a { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(245,197,24,0.4); transition: border-color 0.2s; }
+  .info-strip a:hover { border-color: var(--gold); }
+
+  /* FOOTER */
+  footer { background: #050309; border-top: 1px solid rgba(74,29,150,0.4); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 3px; color: rgba(255,255,255,0.25); }
+  .footer-brand span { color: var(--gold); }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
+
+  /* ANIMATIONS */
+  @keyframes floatIcon {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(4deg); }
+  }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .page-hero { padding: 0 20px 40px; }
+    .steps-bar { padding: 20px; gap: 16px; }
+    .step-arrow { display: none; }
+    .join-cards { grid-template-columns: 1fr; padding: 48px 20px; }
+    footer { padding: 24px 20px; flex-direction: column; }
+    .info-strip { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="LSU Futsal Club">
+    <span>LSU Futsal Club</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <span class="label">Get Involved</span>
+    <h1>Join the <span>Club</span></h1>
+    <p>Two quick steps and you're in. Connect with the team on GroupMe and make it official on TigerLink.</p>
+  </div>
+</div>
+
+<!-- STEPS BAR -->
+<div class="steps-bar">
+  <div class="step">
+    <div class="step-num">01</div>
+    <div class="step-text">
+      <strong>Join GroupMe</strong>
+      <span>Get into the team chat</span>
+    </div>
+  </div>
+  <div class="step-arrow">→</div>
+  <div class="step">
+    <div class="step-num">02</div>
+    <div class="step-text">
+      <strong>Register on TigerLink</strong>
+      <span>Make your membership official</span>
+    </div>
+  </div>
+  <div class="step-arrow">→</div>
+  <div class="step">
+    <div class="step-num">03</div>
+    <div class="step-text">
+      <strong>Show Up &amp; Play</strong>
+      <span>~6:30–11 PM daily @ LSU Rec</span>
+    </div>
+  </div>
+</div>
+
+<!-- CARDS -->
+<div class="join-cards">
+
+  <!-- GroupMe -->
+  <div class="join-card">
+    <span class="card-icon">💬</span>
+    <div class="card-platform">Step 1 · GroupMe</div>
+    <div class="card-title">Team Chat</div>
+    <p class="card-desc">
+      Stay in the loop — practice updates, schedule changes, and team announcements all happen here. This is where we communicate day-to-day. Check here before heading out for any time changes.
+    </p>
+    <!-- Replace href="#" with your GroupMe invite link -->
+    <a href="https://groupme.com/join_group/103943618/1nbPy4xD" target="_blank" class="card-btn">💬 Join GroupMe</a>
+    <p class="card-note">Link opens the GroupMe app or web</p>
+  </div>
+
+  <!-- TigerLink -->
+  <div class="join-card">
+    <span class="card-icon">🐯</span>
+    <div class="card-platform">Step 2 · TigerLink</div>
+    <div class="card-title">Official Membership</div>
+    <p class="card-desc">
+      TigerLink is LSU's official student org platform. Registering here makes you an official member and is required for tournaments and university-sponsored events.
+    </p>
+    <!-- Replace href="#" with your TigerLink page link -->
+    <a href="https://tigerlink.lsu.edu/FUTSALCLUB/" target="_blank" class="card-btn">🐯 Register on TigerLink</a>
+    <p class="card-note">Requires LSU student login (myLSU)</p>
+  </div>
+
+</div>
+
+<!-- INFO STRIP -->
+<div class="info-strip">
+  <p>📍 <strong>LSU Rec Center</strong> · Daily ~6:30 PM – 11:00 PM</p>
+  <p style="color:rgba(255,255,255,0.2)">·</p>
+  <p>Follow us <strong><a href="https://www.instagram.com/lsu.futsal?igsh=YWFycnI4M2NveDM1" target="_blank">@lsu.futsal</a></strong> on Instagram</p>
+  <p style="color:rgba(255,255,255,0.2)">·</p>
+  <p>Questions? <strong><a href="/cdn-cgi/l/email-protection#38544b4d5e4d4c4b59545b544d5a785f55595154165b5755"><span class="__cf_email__" data-cfemail="2e425d5b485b5a5d4f424d425b4c6e49434f4742004d4143">[email&#160;protected]</span></a></strong></p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div cl
