@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Store — LSU Futsal Club</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #4a1d96;
+    --purple-dark: #2d0f6b;
+    --gold: #f5c518;
+    --gold-dark: #c9a000;
+    --bg: #0a0612;
+    --card-bg: #110920;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: #fff; font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 72px;
+    background: rgba(10,6,18,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(245,197,24,0.2);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .nav-logo img { height: 48px; filter: drop-shadow(0 0 8px rgba(245,197,24,0.5)); }
+  .nav-logo span { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 2px; color: #fff; }
+  .nav-back { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+  .nav-back:hover { color: var(--gold); }
+
+  /* PAGE HERO */
+  .page-hero {
+    min-height: 40vh; display: flex; align-items: flex-end;
+    padding: 0 48px 56px; position: relative; overflow: hidden;
+    margin-top: 72px;
+    background: radial-gradient(ellipse 70% 80% at 20% 50%, rgba(74,29,150,0.6) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 60% at 85% 30%, rgba(245,197,24,0.06) 0%, transparent 60%);
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(-55deg, transparent, transparent 40px, rgba(74,29,150,0.06) 40px, rgba(74,29,150,0.06) 41px);
+  }
+  .hero-logo-watermark {
+    position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+    height: 110%; opacity: 0.05; pointer-events: none;
+    filter: saturate(0) brightness(3);
+  }
+  .page-hero-content { position: relative; max-width: 700px; }
+  .page-hero-content .label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
+  .page-hero-content h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 9vw, 100px); letter-spacing: 3px; line-height: 0.92; margin-bottom: 16px; }
+  .page-hero-content h1 span { color: var(--gold); }
+  .page-hero-content p { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 480px; }
+
+  /* NOTICE BANNER */
+  .notice {
+    background: rgba(245,197,24,0.08);
+    border-top: 1px solid rgba(245,197,24,0.2);
+    border-bottom: 1px solid rgba(245,197,24,0.2);
+    padding: 16px 48px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 15px; letter-spacing: 1px;
+    color: rgba(255,255,255,0.5); text-align: center; flex-wrap: wrap;
+  }
+  .notice span { color: var(--gold); font-weight: 700; }
+
+  /* PRODUCT GRID */
+  .products {
+    padding: 56px 48px 100px;
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .product-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(74,29,150,0.4);
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    display: flex; flex-direction: column;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(0,0,0,0.5);
+    border-color: rgba(245,197,24,0.4);
+  }
+
+  .product-img {
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(135deg, #1a0d30 0%, #2d0f6b 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .product-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(74,29,150,0.1) 20px, rgba(74,29,150,0.1) 21px);
+  }
+  .product-img img {
+    width: 55%; height: 55%; object-fit: contain;
+    filter: drop-shadow(0 8px 24px rgba(245,197,24,0.2));
+    position: relative; z-index: 1;
+    transition: transform 0.3s;
+  }
+  .product-card:hover .product-img img { transform: scale(1.08) rotate(-2deg); }
+
+  .product-tag {
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 12px; background: var(--gold); color: var(--purple-dark);
+    clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+  }
+
+  .product-info { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+  .product-category {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px;
+    letter-spacing: 1px; margin-bottom: 10px; line-height: 1;
+  }
+  .product-desc {
+    font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  /* SIZE SELECTOR */
+  .sizes { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .size {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px;
+    letter-spacing: 1px; padding: 5px 12px;
+    border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.4);
+    background: transparent; cursor: pointer; transition: all 0.15s;
+  }
+  .size:hover { border-color: var(--gold); color: var(--gold); }
+
+  .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; }
+  .product-price {
+    font-family: 'Bebas Neue', sans-serif; font-size: 36px;
+    color: var(--gold); letter-spacing: 1px; line-height: 1;
+  }
+  .product-price span { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: rgba(255,255,255,0.25); font-weight: 400; letter-spacing: 1px; display: block; margin-top: 2px; }
+
+  .buy-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 13px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px;
+    background: var(--gold); color: var(--purple-dark);
+    border: none; cursor: pointer; text-decoration: none; display: inline-block;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+    white-space: nowrap;
+  }
+  .buy-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
+  .buy-btn.coming-soon {
+    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25);
+    cursor: not-allowed; pointer-events: none;
+  }
+
+  /* FOOTER */
+  footer { background: #050309; border-top: 1px solid rgba(74,29,150,0.4); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .footer-brand { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 3px; color: rgba(255,255,255,0.25); }
+  .footer-brand span { color: var(--gold); }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .page-hero { padding: 0 20px 40px; }
+    .notice { padding: 16px 20px; }
+    .products { padding: 32px 20px 60px; gap: 16px; }
+    footer { padding: 24px 20px; flex-direction: column; }
+  }
+  @media (max-width: 500px) {
+    .products { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="logo.png" alt="LSU Futsal Club">
+    <span>LSU Futsal Club</span>
+  </a>
+  <a href="index.html" class="nav-back">← Back to Home</a>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <img src="logo.png" class="hero-logo-watermark" alt="" aria-hidden="true">
+  <div class="page-hero-content">
+    <span class="label">Official Merch</span>
+    <h1>LSU Futsal <span>Store</span></h1>
+    <p>Rep the club. Every purchase supports the team — gear up in purple and gold.</p>
+  </div>
+</div>
+
+<!-- NOTICE -->
+<div class="notice">
+  ⚡ <span>Dropping soon</span> &nbsp;—&nbsp; links will be live shortly. Questions? <a href="mailto:lsufutsalclub@gmail.com" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(245,197,24,0.4); margin-left:4px;">lsufutsalclub@gmail.com</a>
+</div>
+
+<!-- PRODUCTS -->
+<div class="products">
+
+  <!-- Short Sleeve -->
+  <div class="product-card">
+    <div class="product-img">
+      <div class="product-tag">New</div>
+      <img src="logo.png" alt="LSU Futsal Short Sleeve">
+    </div>
+    <div class="product-info">
+      <div class="product-category">T-Shirt</div>
+      <div class="product-name">Short Sleeve</div>
+      <p class="product-desc">Soft cotton tee with the LSU Futsal Club crest. Purple & gold. Great for practice or everyday wear.</p>
+      <div class="sizes">
+        <div class="size">XS</div>
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
+        <div class="size">2XL</div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">$28<span>+ shipping</span></div>
+        <!-- Replace href="#" with your Stripe payment link -->
+        <a href="#" class="buy-btn coming-soon">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Long Sleeve -->
+  <div class="product-card">
+    <div class="product-img">
+      <div class="product-tag">New</div>
+      <img src="logo.png" alt="LSU Futsal Long Sleeve">
+    </div>
+    <div class="product-info">
+      <div class="product-category">T-Shirt</div>
+      <div class="product-name">Long Sleeve</div>
+      <p class="product-desc">Premium long sleeve tee with the LSU Futsal Club crest. Perfect for cooler nights at the Rec.</p>
+      <div class="sizes">
+        <div class="size">XS</div>
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
+        <div class="size">2XL</div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">$35<span>+ shipping</span></div>
+        <!-- Replace href="#" with your Stripe payment link -->
+        <a href="#" class="buy-btn coming-soon">Coming Soon</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand"><span>LSU</span> Futsal Club</div>
+  <p>© 2026 LSU Futsal Club · Louisiana State University</p>
+</footer>
+
+</body>
+</html>
