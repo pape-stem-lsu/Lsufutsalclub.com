@@ -46,6 +46,12 @@
     content: ''; position: absolute; inset: 0;
     background-image: repeating-linear-gradient(-55deg, transparent, transparent 40px, rgba(74,29,150,0.06) 40px, rgba(74,29,150,0.06) 41px);
   }
+  .hero-logo-watermark {
+    position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
+    height: 110%; opacity: 0.05; pointer-events: none;
+    filter: saturate(0) brightness(3);
+  
+  }
   .page-hero-content { position: relative; max-width: 700px; }
   .page-hero-content .label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
   .page-hero-content h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 9vw, 96px); letter-spacing: 3px; line-height: 0.92; margin-bottom: 16px; }
@@ -140,6 +146,7 @@
 
 <!-- HERO -->
 <div class="page-hero">
+  <img src="logo.png" class="hero-logo-watermark" alt="" aria-hidden="true">
   <div class="page-hero-content">
     <span class="label">Get Involved</span>
     <h1>Join the <span>Club</span></h1>
