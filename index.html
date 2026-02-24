@@ -23,7 +23,7 @@
     --card-bg: #110920;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; height: -webkit-fill-available;}
   body { background: var(--bg); color: var(--white); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
 
   /* NAV */
@@ -46,7 +46,7 @@
 
   /* HERO */
   #hero {
-    min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; min-height: -webkit-fill-available; display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden; padding-top: 72px;
     background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(74,29,150,0.5) 0%, transparent 70%);
   }
