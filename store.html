@@ -7,6 +7,7 @@
 <meta property="og:description" content="Daily open runs at LSU Rec Center. All levels welcome. Baton Rouge, LA.">
 <meta property="og:image" content="logo.png">
 </head>
+<meta name="robots" content="index, follow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Store — LSU Futsal Club</title>
@@ -43,13 +44,85 @@
   .nav-back { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
   .nav-back:hover { color: var(--gold); }
 
+  /* CART ICON */
+  .cart-icon-btn {
+    position: relative; background: none; border: none; cursor: pointer;
+    padding: 8px; color: #fff;
+  }
+  .cart-icon-btn svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 2; }
+  .cart-count {
+    position: absolute; top: 0; right: 0;
+    background: var(--gold); color: var(--purple-dark);
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 11px;
+    width: 18px; height: 18px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: scale(0); transition: all 0.2s;
+  }
+  .cart-count.visible { opacity: 1; transform: scale(1); }
+
+  /* CART DRAWER */
+  .cart-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+    z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .cart-overlay.open { opacity: 1; pointer-events: all; }
+  .cart-drawer {
+    position: fixed; top: 0; right: 0; bottom: 0; width: 420px; max-width: 95vw;
+    background: #0d0820; border-left: 1px solid rgba(245,197,24,0.2);
+    z-index: 400; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+    display: flex; flex-direction: column;
+  }
+  .cart-drawer.open { transform: translateX(0); }
+  .cart-header {
+    padding: 24px 28px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .cart-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; }
+  .cart-close { background: none; border: none; color: rgba(255,255,255,0.5); cursor: pointer; font-size: 24px; line-height: 1; transition: color 0.2s; }
+  .cart-close:hover { color: #fff; }
+  .cart-items { flex: 1; overflow-y: auto; padding: 20px 28px; }
+  .cart-empty { text-align: center; padding: 60px 0; color: rgba(255,255,255,0.3); font-family: 'Barlow Condensed', sans-serif; font-size: 16px; letter-spacing: 2px; text-transform: uppercase; }
+  .cart-empty span { font-size: 40px; display: block; margin-bottom: 12px; }
+
+  .cart-item {
+    display: flex; gap: 16px; align-items: center;
+    padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .cart-item-img { width: 64px; height: 64px; object-fit: contain; background: #fff; border-radius: 4px; flex-shrink: 0; }
+  .cart-item-info { flex: 1; }
+  .cart-item-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 1px; }
+  .cart-item-sub { font-size: 13px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+  .cart-item-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: var(--gold); }
+  .cart-item-remove { background: none; border: none; color: rgba(255,255,255,0.25); cursor: pointer; font-size: 18px; transition: color 0.2s; flex-shrink: 0; }
+  .cart-item-remove:hover { color: #ef4444; }
+
+  .cart-qty { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .qty-btn { background: rgba(255,255,255,0.08); border: none; color: #fff; width: 24px; height: 24px; cursor: pointer; font-size: 14px; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+  .qty-btn:hover { background: rgba(245,197,24,0.2); }
+  .qty-val { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; min-width: 20px; text-align: center; }
+
+  .cart-footer { padding: 20px 28px; border-top: 1px solid rgba(255, 255, 255, 0.08); flex-shrink: 0; }
+  .cart-subtotal { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .cart-subtotal span { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+  .cart-subtotal strong { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--gold); }
+  .cart-note { font-size: 12px; color: rgb(245, 197, 24); margin-bottom: 20px; line-height: 1.5; }
+  .checkout-btn {
+    width: 100%; font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 16px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 18px;
+    background: var(--gold); color: var(--purple-dark); border: none; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s; display: block; text-align: center; text-decoration: none;
+  }
+  .checkout-btn:hover { background: var(--gold-dark); }
+  .checkout-btn:disabled { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.3); cursor: not-allowed; }
+
   /* PAGE HERO */
   .page-hero {
     min-height: 40vh; display: flex; align-items: flex-end;
     padding: 0 48px 56px; position: relative; overflow: hidden;
     margin-top: 72px;
-    background: radial-gradient(ellipse 70% 80% at 20% 50%, rgba(74,29,150,0.6) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 60% at 85% 30%, rgba(245,197,24,0.06) 0%, transparent 60%);
+    background: radial-gradient(ellipse 70% 80% at 20% 50%, rgba(74,29,150,0.6) 0%, transparent 70%);
   }
   .page-hero::before {
     content: ''; position: absolute; inset: 0;
@@ -57,8 +130,7 @@
   }
   .hero-logo-watermark {
     position: absolute; right: -40px; top: 50%; transform: translateY(-50%);
-    height: 110%; opacity: 0.05; pointer-events: none;
-    filter: saturate(0) brightness(3);
+    height: 110%; opacity: 0.05; pointer-events: none; filter: saturate(0) brightness(3);
   }
   .page-hero-content { position: relative; max-width: 700px; }
   .page-hero-content .label { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; display: block; }
@@ -66,7 +138,7 @@
   .page-hero-content h1 span { color: var(--gold); }
   .page-hero-content p { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.6; max-width: 480px; }
 
-  /* NOTICE BANNER */
+  /* NOTICE */
   .notice {
     background: rgba(245,197,24,0.08);
     border-top: 1px solid rgba(245,197,24,0.2);
@@ -81,9 +153,9 @@
   /* PRODUCT GRID */
   .products {
     padding: 56px 48px 100px;
-    max-width: 900px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 32px;
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
   }
 
   .product-card {
@@ -98,80 +170,81 @@
     box-shadow: 0 20px 48px rgba(0,0,0,0.5);
     border-color: rgba(245,197,24,0.4);
   }
-
   .product-img {
     aspect-ratio: 1 / 1;
     background: linear-gradient(135deg, #1a0d30 0%, #2d0f6b 100%);
     display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden;
   }
+  .product-img.white-bg { background: #fff; }
   .product-img::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background-image: repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(74,29,150,0.1) 20px, rgba(74,29,150,0.1) 21px);
   }
+  .product-img.white-bg::before { display: none; }
   .product-img img {
     width: 99%; height: 99%; object-fit: contain;
-    filter: drop-shadow(0 8px 24px rgba(245,197,24,0.2));
     position: relative; z-index: 1;
     transition: transform 0.3s;
   }
-  .product-card:hover .product-img img { transform: scale(1.08) rotate(-2deg); }
-
+  .product-card:hover .product-img img { transform: scale(1.05); }
   .product-tag {
-    position: absolute; top: 16px; left: 16px; z-index: 2;
+    position: absolute; top: 12px; left: 12px; z-index: 2;
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 10px;
     letter-spacing: 2px; text-transform: uppercase;
-    padding: 4px 12px; background: var(--gold); color: var(--purple-dark);
+    padding: 4px 10px; background: var(--gold); color: var(--purple-dark);
     clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
   }
+  .flip-hint {
+    position: absolute; bottom: 10px; left: 10px; z-index: 2;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase; color: rgba(0,0,0,0.35);
+  }
+  .flip-dots {
+    position: absolute; bottom: 10px; right: 10px; z-index: 2;
+    display: flex; gap: 5px;
+  }
+  .dot { width: 7px; height: 7px; border-radius: 50%; transition: background 0.2s; }
 
-  .product-info { padding: 28px; flex: 1; display: flex; flex-direction: column; }
-  .product-category {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 11px;
-    letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
-    margin-bottom: 6px;
-  }
-  .product-name {
-    font-family: 'Bebas Neue', sans-serif; font-size: 32px;
-    letter-spacing: 1px; margin-bottom: 10px; line-height: 1;
-  }
-  .product-desc {
-    font-size: 14px; color: rgba(255,255,255,0.45); line-height: 1.6;
-    margin-bottom: 12px;
-  }
+  .product-info { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .product-category { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; line-height: 1; }
+  .product-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 14px; }
 
   /* SIZE SELECTOR */
-  .sizes { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .sizes-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+  .sizes { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
   .size {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px;
-    letter-spacing: 1px; padding: 5px 12px;
+    letter-spacing: 1px; padding: 5px 10px;
     border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.4);
-    background: transparent; cursor: pointer; transition: all 0.15s;
+    background: transparent; cursor: pointer; transition: all 0.15s; user-select: none;
   }
   .size:hover { border-color: var(--gold); color: var(--gold); }
+  .size.selected { border-color: var(--gold); color: var(--purple-dark); background: var(--gold); }
 
-  .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; }
-  .product-price {
-    font-family: 'Bebas Neue', sans-serif; font-size: 36px;
-    color: var(--gold); letter-spacing: 1px; line-height: 1;
-  }
-  .product-price span { font-family: 'Barlow Condensed', sans-serif; font-size: 12px; color: rgba(255,255,255,0.25); font-weight: 400; letter-spacing: 1px; display: block; margin-top: 2px; }
+  .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+  .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold); line-height: 1; }
+  .product-price span { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: rgba(255,255,255,0.25); font-weight: 400; letter-spacing: 1px; display: block; }
 
-  .buy-btn {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 13px;
-    letter-spacing: 2px; text-transform: uppercase; padding: 14px 28px;
+  .add-btn {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 12px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 12px 20px;
     background: var(--gold); color: var(--purple-dark);
-    border: none; cursor: pointer; text-decoration: none; display: inline-block;
+    border: none; cursor: pointer;
     clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
-    transition: background 0.2s, transform 0.15s;
-    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s; white-space: nowrap;
   }
-  .buy-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
-  .buy-btn.coming-soon {
-    background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25);
-    cursor: not-allowed; pointer-events: none;
+  .add-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
+  .add-btn.coming-soon { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); cursor: not-allowed; pointer-events: none; }
+
+  /* ADDED ANIMATION */
+  @keyframes addPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.92); }
+    100% { transform: scale(1); }
   }
+  .add-btn.popped { animation: addPop 0.2s ease; }
 
   /* FOOTER */
   footer { background: #050309; border-top: 1px solid rgba(74,29,150,0.4); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
@@ -179,11 +252,13 @@
   .footer-brand span { color: var(--gold); }
   footer p { font-size: 13px; color: rgba(255,255,255,0.2); }
 
+  @media (max-width: 900px) {
+    .products { grid-template-columns: 1fr 1fr; padding: 32px 24px 60px; }
+  }
   @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .page-hero { padding: 0 20px 40px; }
     .notice { padding: 16px 20px; }
-    .products { padding: 32px 20px 60px; gap: 16px; }
     footer { padding: 24px 20px; flex-direction: column; }
   }
   @media (max-width: 500px) {
@@ -191,8 +266,29 @@
   }
 </style>
 </head>
-
 <body>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <h2>Your Cart 🛒</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty"><span>🛒</span>Your cart is empty</div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-subtotal">
+      <span>Subtotal</span>
+      <strong id="cartTotal">$0</strong>
+    </div>
+    <p class="cart-note">Tax & shipping calculated at checkout. Size selection is for reference — confirm in the order notes.</p>
+    <button class="checkout-btn" id="checkoutBtn" onclick="checkout()" disabled>Checkout →</button>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -200,7 +296,13 @@
     <img src="logo.png" alt="LSU Futsal Club">
     <span>LSU Futsal Club</span>
   </a>
-  <a href="index.html" class="nav-back">← Back to Home</a>
+  <div class="nav-right">
+    <a href="index.html" class="nav-back">← Home</a>
+    <button class="cart-icon-btn" onclick="openCart()">
+      <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -215,7 +317,7 @@
 
 <!-- NOTICE -->
 <div class="notice">
-  ⚡ <span>Dropping soon</span> &nbsp;—&nbsp; links will be live shortly. Questions? <a href="mailto:lsufutsalclub@gmail.com" style="color:var(--gold); text-decoration:none; border-bottom:1px solid rgba(245,197,24,0.4); margin-left:4px;">lsufutsalclub@gmail.com</a>
+  ⚡ <span>Live now</span> &nbsp;—&nbsp; Short sleeve available. More dropping soon. Questions? <a href="mailto:lsufutsalclub@gmail.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(245,197,24,0.4);margin-left:4px;">lsufutsalclub@gmail.com</a>
 </div>
 
 <!-- PRODUCTS -->
@@ -223,149 +325,269 @@
 
   <!-- Short Sleeve -->
   <div class="product-card">
-    <div class="product-img">
+    <div class="product-img white-bg">
       <img src="short.png" alt="LSU Futsal Short Sleeve">
     </div>
     <div class="product-info">
       <div class="product-category">T-Shirt</div>
       <div class="product-name">Short Sleeve</div>
-      <p class="product-desc">Dri-fit tee with the LSU Futsal Club crest. Great for runs or everyday wear.</p>
-      <div class="sizes">
-        <div class="size">XS</div>
-        <div class="size">S</div>
-        <div class="size">M</div>
-        <div class="size">L</div>
-        <div class="size">XL</div>
+      <p class="product-desc">Dri-fit tee with the large LSU Futsal Club crest. Great for runs or everyday wear.</p>
+      <div class="sizes-label">Select Size</div>
+      <div class="sizes" id="sizes-short">
+        <div class="size" onclick="selectSize(this,'sizes-short')">XS</div>
+        <div class="size" onclick="selectSize(this,'sizes-short')">S</div>
+        <div class="size" onclick="selectSize(this,'sizes-short')">M</div>
+        <div class="size" onclick="selectSize(this,'sizes-short')">L</div>
+        <div class="size" onclick="selectSize(this,'sizes-short')">XL</div>
       </div>
       <div class="product-footer">
-        <div class="product-price">$TBD<span>+ shipping</span></div>
-        <!-- Replace href="#" with your Stripe payment link -->
-        <a href="#" class="buy-btn coming-soon">Coming Soon</a>
+        <div class="product-price">$28<span>+ tax & shipping</span></div>
+        <button class="add-btn coming-soon">Coming Soon</button>
+        <!--<button class="add-btn" onclick="addToCart('Short Sleeve', 28, 'short.png', 'sizes-short', this, 'https://buy.stripe.com/14AdRb8ON2mMa1K69Wasg00')">Add to Cart</button>-->
       </div>
     </div>
   </div>
 
   <!-- Long Sleeve -->
   <div class="product-card">
-    <div class="product-img">
+    <div class="product-img white-bg">
+      <div class="product-tag" style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.5);">Soon</div>
       <img src="long.png" alt="LSU Futsal Long Sleeve">
     </div>
     <div class="product-info">
       <div class="product-category">T-Shirt</div>
       <div class="product-name">Long Sleeve</div>
-      <p class="product-desc">Long sleeve tee with the LSU Futsal Club crest. Perfect for cooler nights at the Rec.</p>
-      <div class="sizes">
-        <div class="size">XS</div>
-        <div class="size">S</div>
-        <div class="size">M</div>
-        <div class="size">L</div>
-        <div class="size">XL</div>
+      <p class="product-desc">Long sleeve tee with the large LSU Futsal Club crest. Perfect for cooler nights at the Rec.</p>
+      <div class="sizes-label">Select Size</div>
+      <div class="sizes" id="sizes-long">
+        <div class="size" onclick="selectSize(this,'sizes-long')">XS</div>
+        <div class="size" onclick="selectSize(this,'sizes-long')">S</div>
+        <div class="size" onclick="selectSize(this,'sizes-long')">M</div>
+        <div class="size" onclick="selectSize(this,'sizes-long')">L</div>
+        <div class="size" onclick="selectSize(this,'sizes-long')">XL</div>
       </div>
       <div class="product-footer">
-        <div class="product-price">$TBD<span>+ shipping</span></div>
-        <!-- Replace href="#" with your Stripe payment link -->
-        <a href="#" class="buy-btn coming-soon">Coming Soon</a>
+        <div class="product-price">$30<span>+ shipping</span></div>
+        <button class="add-btn coming-soon">Coming Soon</button>
+        <!--<button class="add-btn" onclick="addToCart('Long Sleeve', 30, 'long.png', 'sizes-short', this, 'https://buy.stripe.com/aFa7sNe970eEa1KeGsasg01')">Add to Cart</button>-->
       </div>
     </div>
   </div>
 
-  <!-- tigers -->
+  <!-- Tigers Tee -->
   <div class="product-card">
-    <div class="product-img" style="background:#fff; cursor:pointer;" onclick="nextImg(this)">
-    <img src="tigers1.PNG" alt="Short Sleeve" style="width:99%;height:99%;object-fit:contain;filter:none;">
-    <div style="position:absolute;bottom:12px;right:12px;display:flex;gap:6px;">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);" class="dot"></div>
-    <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);" class="dot"></div>
-  </div>
-  <div style="position:absolute;bottom:12px;left:12px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,0.4);">Tap to flip</div>
-</div>
+    <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['tigers1.png','tigers2.PNG'])">
+      <img src="tigers1.png" alt="LSU Futsal Tigers Tee">
+      <div class="flip-hint">Tap to flip</div>
+      <div class="flip-dots">
+        <div class="dot" style="background:var(--gold);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+      </div>
+    </div>
     <div class="product-info">
       <div class="product-category">T-Shirt</div>
       <div class="product-name">Futsal Tigers</div>
-      <p class="product-desc">Dri-fit tee with the LSU Futsal Club crest and "Tigers" on the back. Perfect for reping the club.</p>
-      <div class="sizes">
-        <div class="size">XS</div>
-        <div class="size">S</div>
-        <div class="size">M</div>
-        <div class="size">L</div>
-        <div class="size">XL</div>
+      <p class="product-desc">Dri-fit tee with the LSU Futsal Club crest and "Tigers" on the back. Perfect for repping the club.</p>
+      <div class="sizes-label">Select Size</div>
+      <div class="sizes" id="sizes-tigers">
+        <div class="size" onclick="selectSize(this,'sizes-tigers')">XS</div>
+        <div class="size" onclick="selectSize(this,'sizes-tigers')">S</div>
+        <div class="size" onclick="selectSize(this,'sizes-tigers')">M</div>
+        <div class="size" onclick="selectSize(this,'sizes-tigers')">L</div>
+        <div class="size" onclick="selectSize(this,'sizes-tigers')">XL</div>
       </div>
       <div class="product-footer">
-        <div class="product-price">$TBD<span>+ shipping</span></div>
-        <!-- Replace href="#" with your Stripe payment link -->
-        <a href="#" class="buy-btn coming-soon">Coming Soon</a>
+        <div class="product-price">$35<span>+ shipping</span></div>
+        <button class="add-btn coming-soon">Coming Soon</button>
+        <!--<button class="add-btn" onclick="addToCart('Futsal tigers', 35, 'tiger2.png', 'sizes-short', this, 'https://buy.stripe.com/8x25kFaWV9Peb5O1TGasg02')">Add to Cart</button>-->
       </div>
     </div>
   </div>
 
-  <!--stickers-->
+  <!-- Stickers -->
   <div class="product-card">
     <div class="product-img">
-      <img src="logo.png" alt="LSU Futsal Short Sleeve">
+      <img src="logo.png" alt="LSU Futsal Stickers">
     </div>
     <div class="product-info">
       <div class="product-category">Accessories</div>
       <div class="product-name">Stickers</div>
-      <p class="product-desc">Stickers to rep the club</p>
+      <p class="product-desc">Rep the club wherever you go.</p>
       <div class="product-footer">
-        <div class="product-price">$TBD<span>Get a job Raph</span></div>
-        <!-- Replace href="#" with your Stripe payment link -->
-        <a href="#" class="buy-btn coming-soon">Coming Soon</a>
+        <div class="product-price">$3<span>+ shipping</span></div>
+        <button class="add-btn coming-soon">Coming Soon</button>
+        <!--<button class="add-btn" onclick="addToCart('Stickers', 3, 'logo.png', null, this, 'https://buy.stripe.com/8x29AV3utf9y4Hq55Sasg03')">Add to Cart</button>-->
       </div>
     </div>
   </div>
-  <!--pins-->
+
+  <!-- Pins -->
   <div class="product-card">
-    <div class="product-img" style="background:#fff; cursor:pointer;" onclick="nextpin(this)">
-    <img src="pin1.PNG" alt="pins" style="width:99%;height:99%;object-fit:contain;filter:none;">
-    <div style="position:absolute;bottom:12px;right:12px;display:flex;gap:6px;">
-    <div style="width:8px;height:8px;border-radius:50%;background:var(--gold);" class="dot"></div>
-    <div style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.3);" class="dot"></div>
-  </div>
-  <div style="position:absolute;bottom:12px;left:12px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(0,0,0,0.4);">Tap to flip</div>
-</div>
+    <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['pin1.png','pin2.png'])">
+      <img src="pin1.png" alt="LSU Futsal Pins">
+      <div class="flip-hint">Tap to flip</div>
+      <div class="flip-dots">
+        <div class="dot" style="background:var(--gold);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+      </div>
+    </div>
     <div class="product-info">
       <div class="product-category">Accessories</div>
       <div class="product-name">Pins</div>
-      <p class="product-desc">Pape lwk the goat</p>
+      <p class="product-desc">Collectible enamel pins featuring LSU Futsal Club designs. Clip 'em on your bag.</p>
       <div class="product-footer">
-        <div class="product-price">$TBD<span>+ shipping</span></div>
-        <!-- Replace href="#" with your Stripe payment link -->
-        <a href="#" class="buy-btn coming-soon">Coming Soon</a>
+        <div class="product-price">$3<span>+ tax and shipping</span></div>
+        <button class="add-btn coming-soon">Coming Soon</button>
+<!--
+        <button class="add-btn" onclick="addToCart('Pins', 3, 'pin1.png', null, this, 'https://buy.stripe.com/eVq3cx6GF1iI4Hq41Oasg04')">Add to Cart</button>
+      -->
       </div>
     </div>
   </div>
+
 </div>
-
-
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand"><span>LSU</span> Futsal Club</div>
   <p>© 2026 LSU Futsal Club · Louisiana State University</p>
 </footer>
-  
+
 <script>
-  const imgs = ['tigers1.PNG', 'tigers2.PNG'];
-  let current = 0;
-  function nextImg(container) {
-    current = (current + 1) % imgs.length;
-    container.querySelector('img').src = imgs[current];
-    container.querySelectorAll('.dot').forEach((d, i) => {
-      d.style.background = i === current ? 'var(--gold)' : 'rgba(255,255,255,0.3)';
+  // ── CART STATE ──────────────────────────────────────────
+  let cart = [];
+
+  // ── SIZE SELECTOR ────────────────────────────────────────
+  function selectSize(el, groupId) {
+    document.querySelectorAll(`#${groupId} .size`).forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // ── FLIP GALLERY ─────────────────────────────────────────
+  const flipState = new Map();
+  function flipImg(container, images) {
+    const current = flipState.get(container) || 0;
+    const next = (current + 1) % images.length;
+    flipState.set(container, next);
+    container.querySelector('img').src = images[next];
+    const dots = container.querySelectorAll('.dot');
+    dots.forEach((d, i) => {
+      d.style.background = i === next ? 'var(--gold)' : 'rgba(0,0,0,0.2)';
     });
   }
-</script>
-<script>
-  const pins = ['pin1.PNG', 'pin2.PNG'];
-  let current1 = 0;
-  function nextpin(container) {
-    current1 = (current1 + 1) % pins.length;
-    container.querySelector('img').src = pins[current1];
-    container.querySelectorAll('.dot').forEach((d, i) => {
-      d.style.background = i === current1 ? 'var(--gold)' : 'rgba(255,255,255,0.3)';
-    });
+
+  // ── ADD TO CART ──────────────────────────────────────────
+  function addToCart(name, price, img, sizeGroupId, btn, stripeLink) {
+    const selectedSize = sizeGroupId
+      ? document.querySelector(`#${sizeGroupId} .size.selected`)
+      : null;
+
+    if (sizeGroupId && !selectedSize) {
+      // shake the size selector
+      const sizeGroup = document.getElementById(sizeGroupId);
+      sizeGroup.style.outline = '1px solid #ef4444';
+      setTimeout(() => sizeGroup.style.outline = '', 1000);
+      return;
+    }
+
+    const size = selectedSize ? selectedSize.textContent : null;
+    const key = `${name}-${size}`;
+    const existing = cart.find(i => i.key === key);
+
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ key, name, price, img, size, qty: 1, stripeLink });
+    }
+
+    btn.classList.add('popped');
+    setTimeout(() => btn.classList.remove('popped'), 200);
+
+    renderCart();
+    openCart();
+  }
+
+  // ── RENDER CART ──────────────────────────────────────────
+  function renderCart() {
+    const container = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+    const countEl = document.getElementById('cartCount');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    const totalQty = cart.reduce((s, i) => s + i.qty, 0);
+    const totalPrice = cart.reduce((s, i) => s + i.price * i.qty, 0);
+
+    countEl.textContent = totalQty;
+    countEl.classList.toggle('visible', totalQty > 0);
+    totalEl.textContent = `$${totalPrice}`;
+    checkoutBtn.disabled = cart.length === 0;
+
+    if (cart.length === 0) {
+      container.innerHTML = '<div class="cart-empty"><span>🛒</span>Your cart is empty</div>';
+      return;
+    }
+
+    container.innerHTML = cart.map((item, idx) => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.img}" alt="${item.name}">
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-sub">${item.size ? `Size: ${item.size}` : ''}</div>
+          <div class="cart-qty">
+            <button class="qty-btn" onclick="changeQty(${idx}, -1)">−</button>
+            <span class="qty-val">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+          <div class="cart-item-price">$${item.price * item.qty}</div>
+          <button class="cart-item-remove" onclick="removeItem(${idx})">✕</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function changeQty(idx, delta) {
+    cart[idx].qty += delta;
+    if (cart[idx].qty <= 0) cart.splice(idx, 1);
+    renderCart();
+  }
+
+  function removeItem(idx) {
+    cart.splice(idx, 1);
+    renderCart();
+  }
+
+  // ── CHECKOUT ─────────────────────────────────────────────
+  function checkout() {
+    // If only 1 item type and it has a stripe link, go direct
+    if (cart.length === 1 && cart[0].stripeLink) {
+      window.open(cart[0].stripeLink, '_blank');
+      return;
+    }
+
+    // Otherwise build a summary and open the first available Stripe link
+    // (for now, since only short sleeve has a link)
+    const stripeItem = cart.find(i => i.stripeLink);
+    if (stripeItem) {
+      const summary = cart.map(i => `${i.name} (${i.size || 'N/A'}) x${i.qty}`).join(', ');
+      alert(`You'll be redirected to Stripe to pay. Items in cart: ${summary}\n\nNote your sizes — you can add them in the order notes on the Stripe page.`);
+      window.open(stripeItem.stripeLink, '_blank');
+    }
+  }
+
+  // ── OPEN/CLOSE CART ──────────────────────────────────────
+  function openCart() {
+    document.getElementById('cartDrawer').classList.add('open');
+    document.getElementById('cartOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeCart() {
+    document.getElementById('cartDrawer').classList.remove('open');
+    document.getElementById('cartOverlay').classList.remove('open');
+    document.body.style.overflow = '';
   }
 </script>
+
 </body>
 </html>
