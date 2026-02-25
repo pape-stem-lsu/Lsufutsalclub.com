@@ -452,8 +452,14 @@
 
   // ── SIZE SELECTOR ────────────────────────────────────────
   function selectSize(el, groupId) {
-    document.querySelectorAll(`#${groupId} .size`).forEach(s => s.classList.remove('selected'));
-    el.classList.add('selected');
+  document.querySelectorAll(`#${groupId} .size`).forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+  }
+
+  function getSelectedSize(groupId) {
+    if (!groupId) return null;
+    const el = document.querySelector(`#${groupId} .size.selected`);
+    return el ? el.textContent.trim() : null;
   }
 
   // ── FLIP GALLERY ─────────────────────────────────────────
@@ -471,19 +477,14 @@
 
   // ── ADD TO CART ──────────────────────────────────────────
   function addToCart(name, price, img, sizeGroupId, btn, stripeLink) {
-    const selectedSize = sizeGroupId
-      ? document.querySelector(`#${sizeGroupId} .size.selected`)
-      : null;
+    const size = getSelectedSize(sizeGroupId);
 
-    if (sizeGroupId && !selectedSize) {
-      // shake the size selector
-      const sizeGroup = document.getElementById(sizeGroupId);
-      sizeGroup.style.outline = '1px solid #ef4444';
-      setTimeout(() => sizeGroup.style.outline = '', 1000);
-      return;
-    }
-
-    const size = selectedSize ? selectedSize.textContent : null;
+  if (sizeGroupId && !size) {
+    const sizeGroup = document.getElementById(sizeGroupId);
+    sizeGroup.style.outline = '1px solid #ef4444';
+    setTimeout(() => sizeGroup.style.outline = '', 1000);
+    return;
+  }
     const key = `${name}-${size}`;
     const existing = cart.find(i => i.key === key);
 
