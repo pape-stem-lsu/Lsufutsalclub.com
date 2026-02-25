@@ -1,5 +1,5 @@
 {
-  "name": "lsu-futsal-checkout",
+  "name": "lsu-futsal-club",
   "version": "1.0.0",
   "dependencies": {
     "stripe": "^14.0.0"
