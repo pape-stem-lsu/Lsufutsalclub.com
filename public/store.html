@@ -333,12 +333,12 @@
       <div class="product-name">Short Sleeve</div>
       <p class="product-desc">Dri-fit tee with the large LSU Futsal Club crest. Great for runs or everyday wear.</p>
       <div class="sizes-label">Select Size</div>
-      <div class="sizes" id="sizes-short">
-        <div class="size" onclick="selectSize(this,'sizes-short')">XS</div>
-        <div class="size" onclick="selectSize(this,'sizes-short')">S</div>
-        <div class="size" onclick="selectSize(this,'sizes-short')">M</div>
-        <div class="size" onclick="selectSize(this,'sizes-short')">L</div>
-        <div class="size" onclick="selectSize(this,'sizes-short')">XL</div>
+      <div class="sizes" data-group="sizes-short">
+        <div class="size">XS</div>
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
       </div>
       <div class="product-footer">
         <div class="product-price">$28<span>+ tax & shipping</span></div>
@@ -358,12 +358,12 @@
       <div class="product-name">Long Sleeve</div>
       <p class="product-desc">Long sleeve tee with the large LSU Futsal Club crest. Perfect for cooler nights at the Rec.</p>
       <div class="sizes-label">Select Size</div>
-      <div class="sizes" id="sizes-long">
-        <div class="size" onclick="selectSize(this,'sizes-long')">XS</div>
-        <div class="size" onclick="selectSize(this,'sizes-long')">S</div>
-        <div class="size" onclick="selectSize(this,'sizes-long')">M</div>
-        <div class="size" onclick="selectSize(this,'sizes-long')">L</div>
-        <div class="size" onclick="selectSize(this,'sizes-long')">XL</div>
+      <div class="sizes" data-group="sizes-long">
+        <div class="size">XS</div>
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
       </div>
       <div class="product-footer">
         <div class="product-price">$30<span>+ shipping</span></div>
@@ -387,12 +387,12 @@
       <div class="product-name">Futsal Tigers</div>
       <p class="product-desc">Dri-fit tee with the LSU Futsal Club crest and "Tigers" on the back. Perfect for repping the club.</p>
       <div class="sizes-label">Select Size</div>
-      <div class="sizes" id="sizes-tigers">
-        <div class="size" onclick="selectSize(this,'sizes-tigers')">XS</div>
-        <div class="size" onclick="selectSize(this,'sizes-tigers')">S</div>
-        <div class="size" onclick="selectSize(this,'sizes-tigers')">M</div>
-        <div class="size" onclick="selectSize(this,'sizes-tigers')">L</div>
-        <div class="size" onclick="selectSize(this,'sizes-tigers')">XL</div>
+      <div class="sizes" data-group="sizes-tigers">
+        <div class="size">XS</div>
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
       </div>
       <div class="product-footer">
         <div class="product-price">$35<span>+ shipping</span></div>
@@ -451,17 +451,22 @@
   let cart = [];
 
   // ── SIZE SELECTOR ────────────────────────────────────────
-  function selectSize(el, groupId) {
-  document.querySelectorAll(`#${groupId} .size`).forEach(s => s.classList.remove('selected'));
-  el.classList.add('selected');
-  }
+  document.addEventListener('click', function(e) {
+    if (!e.target.classList.contains('size')) return;
+    const group = e.target.closest('[data-group]');
+    if (!group) return;
+    group.querySelectorAll('.size').forEach(s => s.classList.remove('selected'));
+    e.target.classList.add('selected');
+    group.style.outline = '';
+  });
 
-  function getSelectedSize(groupId) {
-    if (!groupId) return null;
-    const el = document.querySelector(`#${groupId} .size.selected`);
+  function getSelectedSize(groupName) {
+    if (!groupName) return null;
+    const group = document.querySelector(`[data-group="${groupName}"]`);
+    if (!group) return null;
+    const el = group.querySelector('.size.selected');
     return el ? el.textContent.trim() : null;
   }
-
   // ── FLIP GALLERY ─────────────────────────────────────────
   const flipState = new Map();
   function flipImg(container, images) {
@@ -480,7 +485,7 @@
     const size = getSelectedSize(sizeGroupId);
 
   if (sizeGroupId && !size) {
-    const sizeGroup = document.getElementById(sizeGroupId);
+    const sizeGroup = document.querySelector(`[data-group="${sizeGroupId}"]`);
     sizeGroup.style.outline = '1px solid #ef4444';
     setTimeout(() => sizeGroup.style.outline = '', 1000);
     return;
