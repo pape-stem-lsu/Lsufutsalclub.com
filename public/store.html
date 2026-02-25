@@ -559,23 +559,35 @@
   }
 
   // ── CHECKOUT ─────────────────────────────────────────────
-  function checkout() {
-    // If only 1 item type and it has a stripe link, go direct
-    if (cart.length === 1 && cart[0].stripeLink) {
-      window.open(cart[0].stripeLink, '_blank');
-      return;
-    }
+async function checkout() {
+  const btn = document.getElementById('checkoutBtn');
+  btn.disabled = true;
+  btn.textContent = 'Loading...';
 
-    // Otherwise build a summary and open the first available Stripe link
-    // (for now, since only short sleeve has a link)
-    const stripeItem = cart.find(i => i.stripeLink);
-    if (stripeItem) {
-      const summary = cart.map(i => `${i.name} (${i.size || 'N/A'}) x${i.qty}`).join(', ');
-      alert(`You'll be redirected to Stripe to pay. Items in cart: ${summary}\n\nNote your sizes — you can add them in the order notes on the Stripe page.`);
-      window.open(stripeItem.stripeLink, '_blank');
+  try {
+    const response = await fetch('/.netlify/functions/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        items: cart.map(i => ({ name: i.name, size: i.size, qty: i.qty }))
+      })
+    });
+
+    const data = await response.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert('Checkout error: ' + (data.error || 'Unknown error'));
+      btn.disabled = false;
+      btn.textContent = 'Checkout →';
     }
+  } catch (err) {
+    alert('Something went wrong. Please try again.');
+    btn.disabled = false;
+    btn.textContent = 'Checkout →';
   }
-
+}
   // ── OPEN/CLOSE CART ──────────────────────────────────────
   function openCart() {
     document.getElementById('cartDrawer').classList.add('open');
