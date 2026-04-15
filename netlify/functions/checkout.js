@@ -54,7 +54,7 @@ exports.handler = async (event) => {
         key: 'order_sizes',
         label: { type: 'custom', custom: 'Size(s) Ordered' },
         type: 'text',
-        optional: true,
+        optional: false,
         },
       ],
       custom_text: {
