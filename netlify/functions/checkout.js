@@ -49,6 +49,14 @@ exports.handler = async (event) => {
       shipping_address_collection: {
         allowed_countries: ['US'],
       },
+      custom_fields: [
+        {
+        key: 'order_sizes',
+        label: { type: 'custom', custom: 'Size(s) Ordered' },
+        type: 'text',
+        optional: true,
+        },
+      ],
       custom_text: {
         submit: {
           message: `Order: ${orderNote} — Sizes are noted above. Double-check before completing.`,
