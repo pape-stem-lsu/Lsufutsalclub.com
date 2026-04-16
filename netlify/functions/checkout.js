@@ -46,6 +46,7 @@ exports.handler = async (event) => {
       payment_method_types: ['card'],
       line_items: lineItems,
       mode: 'payment',
+      allow_promotion_codes: true,  
       shipping_address_collection: {
         allowed_countries: ['US'],
       },
@@ -54,7 +55,6 @@ exports.handler = async (event) => {
         key: 'order_sizes',
         label: { type: 'custom', custom: 'Size(s) Ordered' },
         type: 'text',
-        optional: false,
         },
       ],
       custom_text: {
