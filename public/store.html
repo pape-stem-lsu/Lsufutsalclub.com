@@ -387,6 +387,8 @@
       <div class="flip-dots">
         <div class="dot" style="background:var(--gold);"></div>
         <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
       </div>
     </div>
     <div class="product-info">
@@ -474,15 +476,15 @@
     return el ? el.textContent.trim() : null;
   }
   // ── FLIP GALLERY ─────────────────────────────────────────
-  const flipState = new Map();
-  function flipImg(container, images) {
-    const current = flipState.get(container) || 0;
-    const next = (current + 1) % images.length;
-    flipState.set(container, next);
-    container.querySelector('img').src = images[next];
-    const dots = container.querySelectorAll('.dot');
-    dots.forEach((d, i) => {
-      d.style.background = i === next ? 'var(--gold)' : 'rgba(0,0,0,0.2)';
+  function flipImg(el, images){
+    const img = el.querySelector('img');
+    const dots = el.querySelectorAll('.dot');
+    let i = parseInt(el.dataset.flipIdx || '0', 10);
+    i = (i + 1) % images.length;
+    el.dataset.flipIdx = i;
+    img.src = images[i];
+    dots.forEach((d, idx) => {
+      d.style.background = idx === i ? 'var(--gold)' : 'rgba(0,0,0,0.2)';
     });
   }
 
