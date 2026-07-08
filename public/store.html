@@ -236,7 +236,13 @@
     transition: background 0.2s, transform 0.15s; white-space: nowrap;
   }
   .add-btn:hover { background: var(--gold-dark); transform: translateY(-2px); }
-  .add-btn.coming-soon { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.25); cursor: not-allowed; pointer-events: none; }
+  .add-btn-cs { 
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 12px;
+    letter-spacing: 2px; text-transform: uppercase; padding: 12px 20px;
+    background: var(--purple-dark); color: var(--gold-dark);
+    border: none; cursor: pointer;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s; white-space: nowrap;}
 
   /* ADDED ANIMATION */
   @keyframes addPop {
@@ -317,14 +323,43 @@
 
 <!-- NOTICE -->
 <div class="notice">
-  ⚡ <span>Live now</span> &nbsp;—&nbsp; Quarter zips coming soon. Questions? <a href="mailto:lsufutsalclub@gmail.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(245,197,24,0.4);margin-left:4px;">lsufutsalclub@gmail.com</a>
+  ⚡ <span>Live now</span> &nbsp;—&nbsp; Quarter zips and blackout tees coming soon. Questions? <a href="mailto:lsufutsalclub@gmail.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(245,197,24,0.4);margin-left:4px;">lsufutsalclub@gmail.com</a>
 </div>
 
 <!-- PRODUCTS -->
 <div class="products">
 
-  <!-- Short Sleeve -->
+    <!--QZ -->
  <div class="product-card">
+    <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['qz_front.png','qz_back.png'])">
+      <img src="qz_front.png" alt="LSU Futsal QZ ">
+      <div class="flip-hint">Tap to flip</div>
+      <div class="flip-dots">
+        <div class="dot" style="background:var(--gold);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">QUARTER-ZIP</div>
+      <div class="product-name">THE QZ</div>
+      <p class="product-desc">Dri-fit Quarter-Zip with the LSU Futsal Club crest and tigers letting on the back. Great everyday wear.</p>
+      <div class="sizes-label">Select Size</div>
+      <div class="sizes" data-group="sizes-QZ">
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">$TBD<span>+ tax and shipping</span></div>
+        <button class="add-btn-cs">Coming Soon</button>
+        <!--<button class="add-btn" onclick="addToCart('QZ', 28, 'qz_front.png', 'sizes-QZ', this, '-')">Add to Cart</button>-->
+      </div>
+    </div>
+  </div>  
+
+  <!-- Short Sleeve -->
+  <div class="product-card">
     <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['short.png','short2.png'])">
       <img src="short.png" alt="LSU Futsal Long Sleeve Tee">
       <div class="flip-hint">Tap to flip</div>
@@ -373,7 +408,7 @@
         <div class="size">XL</div>
       </div>
       <div class="product-footer">
-        <div class="product-price">$30<span>+ shipping</span></div>
+        <div class="product-price">$30<span>+ tax and shipping</span></div>
         <button class="add-btn" onclick="addToCart('Long Sleeve', 30, 'long.png', 'sizes-long', this, 'https://buy.stripe.com/aFa7sNe970eEa1KeGsasg01')">Add to Cart</button>
       </div>
     </div>
@@ -403,8 +438,8 @@
         <div class="size">XL</div>
       </div>
       <div class="product-footer">
-        <div class="product-price">$35<span>+ shipping</span></div>
-        <button class="add-btn" onclick="addToCart('Futsal Tigers', 35, 'tigers1.png', 'sizes-tigers', this, 'https://buy.stripe.com/8x25kFaWV9Peb5O1TGasg02')">Add to Cart</button>
+        <div class="product-price">$35<span>+ tax and shipping</span></div>
+        <button class="add-btn" onclick="addToCart('Futsal Tigers', 35, '.png', 'sizes-tigers', this, 'https://buy.stripe.com/8x25kFaWV9Peb5O1TGasg02')">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -419,7 +454,7 @@
       <div class="product-name">Stickers</div>
       <p class="product-desc">Rep the club wherever you go.</p>
       <div class="product-footer">
-        <div class="product-price">$3<span>+ shipping</span></div>
+        <div class="product-price">$3<span>+ tax and shipping</span></div>
         <button class="add-btn" onclick="addToCart('Stickers', 3, 'logo.png', null, this, 'https://buy.stripe.com/8x29AV3utf9y4Hq55Sasg03')">Add to Cart</button>
       </div>
     </div>
