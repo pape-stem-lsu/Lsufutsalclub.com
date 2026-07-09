@@ -21,6 +21,7 @@
     --gold-dark: #c9a000;
     --bg: #0a0612;
     --card-bg: #110920;
+    --card-bgsp: #f2d15c;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -165,6 +166,21 @@
     transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
     display: flex; flex-direction: column;
   }
+
+.product-cardsp {
+    background: var(--card-bgsp);
+    border: 1px solid rgba(74,29,150,0.4);
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    display: flex; flex-direction: column;
+  }
+
+  .product-cardsp:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(245, 203, 51, 0.693);
+    border-color: rgb(253, 239, 189);
+  }
+
   .product-card:hover {
     transform: translateY(-6px);
     box-shadow: 0 20px 48px rgba(0,0,0,0.5);
@@ -211,6 +227,12 @@
   .product-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; line-height: 1; }
   .product-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.6; margin-bottom: 14px; }
 
+  .product-infosp { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .product-categorysp { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--purple-dark); margin-bottom: 4px; }
+  .product-namesp { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; margin-bottom: 8px; line-height: 1;color:#4a1d96 }
+  .product-descsp { font-size: 13px; color: rgba(79, 75, 75, 0.661); line-height: 1.6; margin-bottom: 14px; }
+
+
   /* SIZE SELECTOR */
   .sizes-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
   .sizes { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
@@ -223,9 +245,25 @@
   .size:hover { border-color: var(--gold); color: var(--gold); }
   .size.selected { border-color: var(--gold); color: var(--purple-dark); background: var(--gold); }
 
+  .sizes-labelsp { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(79, 75, 75, 0.661); margin-bottom: 8px; }
+  .sizessp { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .sizesp {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px;
+    letter-spacing: 1px; padding: 5px 10px;
+    border: 1px solid rgba(79, 75, 75, 0.661); color: var(--purple-dark);
+    background: transparent; cursor: pointer; transition: all 0.15s; user-select: none;
+  }
+  .size:hover { border-color: var(--purple-dark); color: var(--purple-dark); }
+  .size.selected { border-color: var(--purple-dark); color: var(--gold); background: var(--purple-dark); }
+
   .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
   .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--gold); line-height: 1; }
   .product-price span { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: rgba(255,255,255,0.25); font-weight: 400; letter-spacing: 1px; display: block; }
+
+  .product-footersp { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
+  .product-pricesp { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--purple-dark); line-height: 1; }
+  .product-pricesp span { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; color: rgba(79, 75, 75, 0.661); font-weight: 400; letter-spacing: 1px; display: block; }
+
 
   .add-btn {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 12px;
@@ -330,7 +368,7 @@
 <div class="products">
 
     <!--QZ -->
- <div class="product-card">
+ <div class="product-cardsp">
     <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['qz_front.png','qz_back.png'])">
       <img src="qz_front.png" alt="LSU Futsal QZ ">
       <div class="flip-hint">Tap to flip</div>
@@ -340,18 +378,18 @@
       </div>
     </div>
     <div class="product-info">
-      <div class="product-category">QUARTER-ZIP</div>
-      <div class="product-name">THE QZ</div>
-      <p class="product-desc">Dri-fit Quarter-Zip with the LSU Futsal Club crest and tigers letting on the back. Great everyday wear.</p>
-      <div class="sizes-label">Select Size</div>
-      <div class="sizes" data-group="sizes-QZ">
-        <div class="size">S</div>
-        <div class="size">M</div>
-        <div class="size">L</div>
-        <div class="size">XL</div>
+      <div class="product-categorysp">QUARTER-ZIP</div>
+      <div class="product-namesp">THE QZ</div>
+      <p class="product-descsp">Dri-fit Quarter-Zip with the LSU Futsal Club crest and tigers letting on the back. Great everyday wear.</p>
+      <div class="sizes-labelsp">Select Size</div>
+      <div class="sizessp" data-group="sizes-QZ">
+        <div class="sizesp">S</div>
+        <div class="sizesp">M</div>
+        <div class="sizesp">L</div>
+        <div class="sizesp">XL</div>
       </div>
       <div class="product-footer">
-        <div class="product-price">$TBD<span>+ tax and shipping</span></div>
+        <div class="product-pricesp">$TBD<span>+ tax and shipping</span></div>
         <button class="add-btn-cs">Coming Soon</button>
         <!--<button class="add-btn" onclick="addToCart('QZ', 28, 'qz_front.png', 'sizes-QZ', this, '-')">Add to Cart</button>-->
       </div>
