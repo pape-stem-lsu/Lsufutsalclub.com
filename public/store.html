@@ -253,7 +253,7 @@
     border: 1px solid rgba(79, 75, 75, 0.661); color: var(--purple-dark);
     background: transparent; cursor: pointer; transition: all 0.15s; user-select: none;
   }
-  .size:hover { border-color: var(--purple-dark); color: var(--purple-dark); }
+  .size:hover { border-color: var(--gold); color: var(--gold-dark); }
   .size.selected { border-color: var(--purple-dark); color: var(--gold); background: var(--purple-dark); }
 
   .product-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; }
@@ -361,7 +361,7 @@
 
 <!-- NOTICE -->
 <div class="notice">
-  ⚡ <span>Live now</span> &nbsp;—&nbsp; Quarter zips and blackout tees coming soon. Questions? <a href="mailto:lsufutsalclub@gmail.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(245,197,24,0.4);margin-left:4px;">lsufutsalclub@gmail.com</a>
+  ⚡ <span>Live now</span> &nbsp;—&nbsp; Quarter zips and blackout tees coming this FALL 2026!!<a href="mailto:lsufutsalclub@gmail.com" style="color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(245,197,24,0.4);margin-left:4px;">lsufutsalclub@gmail.com</a>
 </div>
 
 <!-- PRODUCTS -->
@@ -394,7 +394,94 @@
         <!--<button class="add-btn" onclick="addToCart('QZ', 28, 'qz_front.png', 'sizes-QZ', this, '-')">Add to Cart</button>-->
       </div>
     </div>
+  </div> 
+   <!--grey QZ -->
+ <div class="product-cardsp">
+    <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['gqz_front.png','gqz_back.png'])">
+      <img src="gqz_front.png" alt="LSU Futsal GREY QZ ">
+      <div class="flip-hint">Tap to flip</div>
+      <div class="flip-dots">
+        <div class="dot" style="background:var(--gold);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-categorysp">QUARTER-ZIP</div>
+      <div class="product-namesp">THE GRY QZ</div>
+      <p class="product-descsp">Dri-fit Quarter-Zip with the LSU Futsal Club crest and tigers letting on the back. Great everyday wear.</p>
+      <div class="sizes-labelsp">Select Size</div>
+      <div class="sizessp" data-group="sizes-GQZ">
+        <div class="sizesp">S</div>
+        <div class="sizesp">M</div>
+        <div class="sizesp">L</div>
+        <div class="sizesp">XL</div>
+      </div>
+      <div class="product-footer">
+        <div class="product-pricesp">$TBD<span>+ tax and shipping</span></div>
+        <button class="add-btn-cs">Coming Soon</button>
+        <!--<button class="add-btn" onclick="addToCart('QZ', 28, 'qz_front.png', 'sizes-QZ', this, '-')">Add to Cart</button>-->
+      </div>
+    </div>
   </div>  
+
+   <!--BLK TEE-->
+ <div class="product-cardsp">
+    <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['bt_front.png','bt_back.png'])">
+      <img src="bt_front.png" alt="LSU Futsal BLK Tee ">
+      <div class="flip-hint">Tap to flip</div>
+      <div class="flip-dots">
+        <div class="dot" style="background:var(--gold);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-categorysp">T-SHIRT</div>
+      <div class="product-namesp">BLK FUTSAL TIGERS</div>
+      <p class="product-descsp">Dri-fit tee with the LSU Futsal Club crest and design on the back. Perfect for repping the club.</p>
+      <div class="sizes-labelsp">Select Size</div>
+      <div class="sizessp" data-group="sizes-BT">
+        <div class="sizesp">S</div>
+        <div class="sizesp">M</div>
+        <div class="sizesp">L</div>
+        <div class="sizesp">XL</div>
+      </div>
+      <div class="product-footer">
+        <div class="product-pricesp">$TBD<span>+ tax and shipping</span></div>
+        <button class="add-btn-cs">Coming Soon</button>
+        <!--<button class="add-btn" onclick="addToCart('QZ', 28, 'qz_front.png', 'sizes-QZ', this, '-')">Add to Cart</button>-->
+      </div>
+    </div>
+  </div>  
+
+   <!-- Tigers Tee -->
+  <div class="product-card">
+    <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['tigers1.png','tigers2.PNG','tigers3.png','tigers4.png'])">
+      <img src="tigers1.png" alt="LSU Futsal Tigers Tee">
+      <div class="flip-hint">Tap to flip</div>
+      <div class="flip-dots">
+        <div class="dot" style="background:var(--gold);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">T-Shirt</div>
+      <div class="product-name">Futsal Tigers</div>
+      <p class="product-desc">Dri-fit tee with the LSU Futsal Club crest and "Tigers" on the back. Perfect for repping the club.</p>
+      <div class="sizes-label">Select Size</div>
+      <div class="sizes" data-group="sizes-tigers">
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
+      </div>
+      <div class="product-footer">
+        <div class="product-price">$35<span>+ tax and shipping</span></div>
+        <button class="add-btn" onclick="addToCart('Futsal Tigers', 35, '.png', 'sizes-tigers', this, 'https://buy.stripe.com/8x25kFaWV9Peb5O1TGasg02')">Add to Cart</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Short Sleeve -->
   <div class="product-card">
@@ -452,36 +539,7 @@
     </div>
   </div>
 
-  <!-- Tigers Tee -->
-  <div class="product-card">
-    <div class="product-img white-bg" style="cursor:pointer;" onclick="flipImg(this, ['tigers1.png','tigers2.PNG','tigers3.png','tigers4.png'])">
-      <img src="tigers1.png" alt="LSU Futsal Tigers Tee">
-      <div class="flip-hint">Tap to flip</div>
-      <div class="flip-dots">
-        <div class="dot" style="background:var(--gold);"></div>
-        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
-        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
-        <div class="dot" style="background:rgba(0,0,0,0.2);"></div>
-      </div>
-    </div>
-    <div class="product-info">
-      <div class="product-category">T-Shirt</div>
-      <div class="product-name">Futsal Tigers</div>
-      <p class="product-desc">Dri-fit tee with the LSU Futsal Club crest and "Tigers" on the back. Perfect for repping the club.</p>
-      <div class="sizes-label">Select Size</div>
-      <div class="sizes" data-group="sizes-tigers">
-        <div class="size">S</div>
-        <div class="size">M</div>
-        <div class="size">L</div>
-        <div class="size">XL</div>
-      </div>
-      <div class="product-footer">
-        <div class="product-price">$35<span>+ tax and shipping</span></div>
-        <button class="add-btn" onclick="addToCart('Futsal Tigers', 35, '.png', 'sizes-tigers', this, 'https://buy.stripe.com/8x25kFaWV9Peb5O1TGasg02')">Add to Cart</button>
-      </div>
-    </div>
-  </div>
-
+ 
   <!-- Stickers -->
   <div class="product-card">
     <div class="product-img">
