@@ -53,6 +53,9 @@ exports.handler = async (event) => {
       shipping_address_collection: {
         allowed_countries: ['US'],
       },
+      automatic_tax: {
+        enabled: true,
+      },
       custom_fields: [
         {
         key: 'order_sizes',
