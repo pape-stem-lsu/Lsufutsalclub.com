@@ -9,6 +9,9 @@ const PRICE_IDS = {
   'Futsal Tigers':'price_1T4bEFPfOXaPKmBfAdQpkhSA',
   'Stickers':'price_1T4bEAPfOXaPKmBfOuwDtMrI',
   'Pins':'price_1T4bE5PfOXaPKmBfhyi2sdCI',
+  'BLK futsal tigers':'prod_V3QQxucxGrk1cs',
+  'THE GRY QZ':'prod_V4xosVjSwmqxDc',
+  'THE QZ':'prod_V4xnl6pjmZbDc5'
 };
 
 exports.handler = async (event) => {
